@@ -1,711 +1,264 @@
-<!DOCTYPE html>
-<html lang="km">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>វិញ្ញាសាត្រៀមប្រឡងគណិតវិទ្យា ថ្នាក់ទី១១ - វិញ្ញាសាទី១</title>
-    
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap');
-
-        body {
-            font-family: 'Kantumruy Pro', sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 20px;
-            color: #2c3e50;
-        }
-
-        .exam-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .header {
-            text-align: center;
-            border-bottom: 3px double #34495e;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
-        }
-
-        .kingdom {
-            font-family: 'Moul', sans-serif;
-            font-size: 16px;
-            margin: 0 0 5px 0;
-        }
-
-        .exam-title {
-            font-family: 'Moul', sans-serif;
-            font-size: 18px;
-            color: #27ae60;
-            margin: 15px 0 5px 0;
-        }
-
-        .author {
-            font-size: 14px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .student-info-box {
-            background-color: #eef2f7;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .input-group input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-family: 'Kantumruy Pro', sans-serif;
-            font-size: 14px;
-        }
-
-        .sticky-bar {
-            position: sticky;
-            top: 10px;
-            background: #fff;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            z-index: 1000;
-            border-left: 5px solid #27ae60;
-        }
-
-        .timer {
-            font-weight: bold;
-            color: #c0392b;
-            font-size: 16px;
-        }
-
-        .question-card {
-            background: #fff;
-            border: 1px solid #e1e8ed;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .question-card:hover {
-            border-color: #27ae60;
-        }
-
-        .question-text {
-            font-weight: bold;
-            font-size: 15px;
-            margin-bottom: 15px;
-            color: #1a365d;
-            line-height: 1.8;
-        }
-
-        .points {
-            font-size: 12px;
-            color: #7f8c8d;
-            font-weight: normal;
-        }
-
-        .options-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 600px) {
-            .options-container { grid-template-columns: 1fr; }
-            .student-info-box { grid-template-columns: 1fr; }
-        }
-
-        .option-label {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .option-label:hover {
-            background: #e2e8f0;
-        }
-
-        .option-label input {
-            margin-right: 12px;
-            transform: scale(1.2);
-            cursor: pointer;
-        }
-
-        .solution-box {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #f0f7ff;
-            border-left: 4px solid #27ae60;
-            border-radius: 4px;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #2c3e50;
-        }
-
-        .solution-title {
-            font-weight: bold;
-            color: #27ae60;
-            margin-bottom: 5px;
-        }
-
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Kantumruy Pro', sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
-            transition: background 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: #219653;
-        }
-
-        .result-box {
-            display: none;
-            background: #e8f8f5;
-            border: 2px solid #2ecc71;
-            padding: 25px;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .result-title {
-            font-family: 'Moul', sans-serif;
-            color: #27ae60;
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .correct-flash { background: #d4edda !important; border-color: #28a745 !important; font-weight: bold; }
-        .incorrect-flash { background: #f8d7da !important; border-color: #dc3545 !important; }
-    </style>
-</head>
-<body>
-
-    <div class="exam-container">
-        <div class="header">
-            <div class="kingdom">ព្រះរាជាណាចក្រកម្ពុជា</div>
-            <div class="kingdom" style="font-size: 13px;">ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
-            <div class="exam-title">វិញ្ញាសាជ្រើសរើសពិសេស ត្រៀមប្រឡងឆមាស ថ្នាក់ទី១១ (វិញ្ញាសាទី១)</div>
-            <div class="author">រៀបរៀងដោយ៖ លោកគ្រូ រស់ មករា</div>
-        </div>
-
-        <div class="student-info-box" id="infoBox">
-            <div class="input-group">
-                <label for="studentName">នាមត្រកូល និងនាមខ្លួនសិស្ស *</label>
-                <input type="text" id="studentName" placeholder="ឧទាហរណ៍៖ មាស ឧត្តម" required>
-            </div>
-            <div class="input-group">
-                <label for="studentClass">ថ្នាក់/បន្ទប់ *</label>
-                <input type="text" id="studentClass" placeholder="ឧទាហរណ៍៖ ១១ A" required>
-            </div>
-        </div>
-
-        <div class="sticky-bar">
-            <div class="timer">ម៉ោងរាប់ថយក្រោយ៖ <span id="timeDisplay">១៥០:០០</span></div>
-            <div style="font-weight: bold;">ពិន្ទុរុបរួម៖ 125</div>
-        </div>
-
-        <div class="result-box" id="resultBox">
-            <div class="result-title">លទ្ធផលប្រឡងទទួលបាន</div>
-            <p id="studentResultName" style="font-weight: bold;"></p>
-            <p style="font-size: 24px; color: #c0392b; font-weight: bold;">ពិន្ទុ៖ <span id="scoreDisplay">0</span> / 125</p>
-            <p id="timeSpentDisplay" style="font-style: italic; color: #7f8c8d;"></p>
-            <p style="color: #2980b9; font-weight: bold; margin-top: 10px;">👇 សូមពិនិត្យមើលដំណោះស្រាយលម្អិតនៅខាងក្រោមលំហាត់នីមួយៗ!</p>
-        </div>
-
-        <form id="quizForm" onsubmit="submitExam(event)">
-            
-            <div class="question-card" id="q1_box">
-                <div class="question-text">លំហាត់ ១. គណនាលីមីត៖ $\lim_{x \to 2} \frac{x^2 - 4}{x - 2}$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q1" value="W1"> $2$</label>
-                    <label class="option-label"><input type="radio" name="q1" value="C" data-correct="true"> $4$</label>
-                    <label class="option-label"><input type="radio" name="q1" value="W2"> $0$</label>
-                    <label class="option-label"><input type="radio" name="q1" value="W3"> $1$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    មានរាងមិនកំណត់ $\frac{0}{0}$ បំបែកជាផលគុណកត្តា៖ $\lim_{x \to 2} \frac{(x-2)(x+2)}{x-2} = \lim_{x \to 2} (x+2) = 2+2=4$។
-                </div>
+<!DOCTYPE html><html lang="km"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>វិញ្ញាសាត្រៀមប្រឡងគណិតវិទ្យា ថ្នាក់ទី១១ - វិញ្ញាសាទី១</title>        <script>        window.MathJax = {            tex: {                inlineMath: [['$', '$'], ['\\(', '\\)']],                displayMath: [['$$', '$$'], ['\\[', '\\]']]            },            svg: {                fontCache: 'global'            }        };    </script>    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>        @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap');
+        body {            font-family: 'Kantumruy Pro', sans-serif;            background-color: #f4f6f9;            margin: 0;            padding: 20px;            color: #2c3e50;        }
+        .exam-container {            max-width: 800px;            margin: 0 auto;            background: #ffffff;            padding: 30px;            border-radius: 12px;            box-shadow: 0 4px 15px rgba(0,0,0,0.05);        }
+        .header {            text-align: center;            border-bottom: 3px double #34495e;            padding-bottom: 20px;            margin-bottom: 25px;        }
+        .kingdom {            font-family: 'Moul', sans-serif;            font-size: 16px;            margin: 0 0 5px 0;        }
+        .exam-title {            font-family: 'Moul', sans-serif;            font-size: 18px;            color: #27ae60;            margin: 15px 0 5px 0;        }
+        .author {            font-size: 14px;            font-weight: bold;            color: #2c3e50;        }
+        .student-info-box {            background-color: #eef2f7;            padding: 20px;            border-radius: 8px;            margin-bottom: 25px;            display: grid;            grid-template-columns: 1fr 1fr;            gap: 15px;        }
+        .input-group {            display: flex;            flex-direction: column;        }
+        .input-group label {            font-weight: bold;            margin-bottom: 5px;            font-size: 14px;        }
+        .input-group input {            padding: 10px;            border: 1px solid #ccc;            border-radius: 6px;            font-family: 'Kantumruy Pro', sans-serif;            font-size: 14px;        }
+        .sticky-bar {            position: sticky;            top: 10px;            background: #fff;            padding: 12px 20px;            border-radius: 8px;            box-shadow: 0 4px 10px rgba(0,0,0,0.1);            display: flex;            justify-content: space-between;            align-items: center;            margin-bottom: 25px;            z-index: 1000;            border-left: 5px solid #27ae60;        }
+        .timer {            font-weight: bold;            color: #c0392b;            font-size: 16px;        }
+        .question-card {            background: #fff;            border: 1px solid #e1e8ed;            border-radius: 8px;            padding: 20px;            margin-bottom: 20px;            transition: all 0.3s ease;        }
+        .question-card:hover {            border-color: #27ae60;        }
+        .question-text {            font-weight: bold;            font-size: 15px;            margin-bottom: 15px;            color: #1a365d;            line-height: 1.8;        }
+        .points {            font-size: 12px;            color: #7f8c8d;            font-weight: normal;        }
+        .options-container {            display: grid;            grid-template-columns: 1fr 1fr;            gap: 12px;            margin-top: 10px;        }
+        @media (max-width: 600px) {            .options-container { grid-template-columns: 1fr; }            .student-info-box { grid-template-columns: 1fr; }        }
+        .option-label {            display: flex;            align-items: center;            padding: 12px;            background: #f8fafc;            border: 1px solid #cbd5e1;            border-radius: 6px;            cursor: pointer;            transition: background 0.2s;        }
+        .option-label:hover {            background: #e2e8f0;        }
+        .option-label input {            margin-right: 12px;            transform: scale(1.2);            cursor: pointer;        }
+        .solution-box {            display: none;            margin-top: 15px;            padding: 15px;            background-color: #f0f7ff;            border-left: 4px solid #27ae60;            border-radius: 4px;            font-size: 14px;            line-height: 1.6;            color: #2c3e50;        }
+        .solution-title {            font-weight: bold;            color: #27ae60;            margin-bottom: 5px;        }
+        .submit-btn {            display: block;            width: 100%;            padding: 15px;            background: #27ae60;            color: white;            border: none;            border-radius: 8px;            font-family: 'Kantumruy Pro', sans-serif;            font-size: 16px;            font-weight: bold;            cursor: pointer;            box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);            transition: background 0.3s;        }
+        .submit-btn:hover {            background: #219653;        }
+        .result-box {            display: none;            background: #e8f8f5;            border: 2px solid #2ecc71;            padding: 25px;            border-radius: 8px;            text-align: center;            margin-bottom: 25px;        }
+        .result-title {            font-family: 'Moul', sans-serif;            color: #27ae60;            font-size: 18px;            margin-bottom: 10px;        }
+        .correct-flash { background: #d4edda !important; border-color: #28a745 !important; font-weight: bold; }        .incorrect-flash { background: #f8d7da !important; border-color: #dc3545 !important; }    </style></head><body>
+    <div class="exam-container">        <div class="header">            <div class="kingdom">ព្រះរាជាណាចក្រកម្ពុជា</div>            <div class="kingdom" style="font-size: 13px;">ជាតិ សាសនា ព្រះមហាក្សត្រ</div>            <div class="exam-title">វិញ្ញាសាជ្រើសរើសពិសេស ត្រៀមប្រឡងឆមាស ថ្នាក់ទី១១ (វិញ្ញាសាទី១)</div>            <div class="author">រៀបរៀងដោយ៖ លោកគ្រូ រស់ មករា</div>        </div>
+        <div class="student-info-box" id="infoBox">            <div class="input-group">                <label for="studentName">នាមត្រកូល និងនាមខ្លួនសិស្ស *</label>                <input type="text" id="studentName" placeholder="ឧទាហរណ៍៖ មាស ឧត្តម" required>            </div>            <div class="input-group">                <label for="studentClass">ថ្នាក់/បន្ទប់ *</label>                <input type="text" id="studentClass" placeholder="ឧទាហរណ៍៖ ១១ A" required>            </div>        </div>
+        <div class="sticky-bar">            <div class="timer">ម៉ោងរាប់ថយក្រោយ៖ <span id="timeDisplay">១៥០:០០</span></div>            <div style="font-weight: bold;">ពិន្ទុរុបរួម៖ ៥០</div>        </div>
+        <div class="result-box" id="resultBox">            <div class="result-title">លទ្ធផលប្រឡងទទួលបាន</div>            <p id="studentResultName" style="font-weight: bold;"></p>            <p style="font-size: 24px; color: #c0392b; font-weight: bold;">ពិន្ទុ៖ <span id="scoreDisplay">0</span> / ៥០</p>            <p id="timeSpentDisplay" style="font-style: italic; color: #7f8c8d;"></p>            <p style="color: #2980b9; font-weight: bold; margin-top: 10px;">👇 សូមពិនិត្យមើលដំណោះស្រាយលម្អិតនៅខាងក្រោមលំហាត់នីមួយៗ!</p>        </div>
+        <form id="quizForm" onsubmit="submitExam(event)">                        
+            <div class="question-card" id="q1_box">                
+                <div class="question-text">លំហាត់ ១. រកតួទី $15$ នៃស្វីតនព្វន្ត $3, 7, 11, 15, ...$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q1" value="W1"> $55$</label>                    
+                    <label class="option-label"><input type="radio" name="q1" value="C" data-correct="true"> $59$</label>                    
+                    <label class="option-label"><input type="radio" name="q1" value="W2"> $63$</label>                    
+                    <label class="option-label"><input type="radio" name="q1" value="W3"> $60$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    ស្វីតនព្វន្តមានតួទី១ $u_1 = 3$ និងផលសង្គមរួម $d = 7 - 3 = 4$។<br>
+                    តាមរូបមន្តតួទូទៅ៖ $u_n = u_1 + (n-1)d$<br>
+                    នាំឱ្យ $u_{15} = 3 + (15-1) \times 4 = 3 + 14 \times 4 = 3 + 56 = 59$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q2_box">
-                <div class="question-text">លំហាត់ ២. គណនាលីមីត៖ $\lim_{x \to 0} \frac{\sin(5x)}{x}$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q2" value="W1"> $1$</label>
-                    <label class="option-label"><input type="radio" name="q2" value="W2"> $\frac{1}{5}$</label>
-                    <label class="option-label"><input type="radio" name="q2" value="C" data-correct="true"> $5$</label>
-                    <label class="option-label"><input type="radio" name="q2" value="W3"> $0$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    ប្រើរូបមន្តគ្រឹះ $\lim_{u \to 0} \frac{\sin u}{u} = 1$ គេសរសេរ៖ $\lim_{x \to 0} \frac{5\sin(5x)}{5x} = 5 \times 1 = 5$។
-                </div>
+            <div class="question-card" id="q2_box">                
+                <div class="question-text">លំហាត់ ២. រកតួទី $6$ នៃស្វីតធរណីមាត្រដែលស្គាល់តួទី១ $v_1 = 2$ និងផលធៀបរួម $q = 3$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q2" value="W1"> $162$</label>                    
+                    <label class="option-label"><input type="radio" name="q2" value="W2"> $243$</label>                    
+                    <label class="option-label"><input type="radio" name="q2" value="C" data-correct="true"> $486$</label>                    
+                    <label class="option-label"><input type="radio" name="q2" value="W3"> $1458$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    តាមរូបមន្តតួទូទៅនៃស្វីតធរណីមាត្រ៖ $v_n = v_1 \times q^{n-1}$<br>
+                    នាំឱ្យ $v_6 = 2 \times 3^{6-1} = 2 \times 3^5 = 2 \times 243 = 486$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q3_box">
-                <div class="question-text">លំហាត់ ៣. រកដែនកំណត់នៃអនុគមន៍ $f(x) = \sqrt{2x - 6}$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q3" value="C" data-correct="true"> $D = [3, +\infty)$</label>
-                    <label class="option-label"><input type="radio" name="q3" value="W1"> $D = (3, +\infty)$</label>
-                    <label class="option-label"><input type="radio" name="q3" value="W2"> $D = (-\infty, 3]$</label>
-                    <label class="option-label"><input type="radio" name="q3" value="W3"> $D = \mathbb{R}$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    អនុគមន៍មានន័យកាលណា $2x - 6 \ge 0 \implies 2x \ge 6 \implies x \ge 3$។ ដូចនេះ $D = [3, +\infty)$។
-                </div>
+            <div class="question-card" id="q3_box">                
+                <div class="question-text">លំហាត់ ៣. គណនាតម្លៃនៃផលបូក៖ $\sum_{k=1}^{20} (2k + 1)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q3" value="C" data-correct="true"> $440$</label>                    
+                    <label class="option-label"><input type="radio" name="q3" value="W1"> $420$</label>                    
+                    <label class="option-label"><input type="radio" name="q3" value="W2"> $400$</label>                    
+                    <label class="option-label"><input type="radio" name="q3" value="W3"> $460$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    ប្រើលក្ខណៈស៊ិចម៉ា៖ $\sum_{k=1}^{20} (2k + 1) = 2\sum_{k=1}^{20} k + \sum_{k=1}^{20} 1$<br>
+                    $= 2 \times \frac{20 \times 21}{2} + 20 = 420 + 20 = 440$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q4_box">
-                <div class="question-text">លំហាត់ ៤. រកតម្លៃដេរីវេនៃអនុគមន៍ $f(x) = x^3 - 2x$ ត្រង់ $x = 2$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q4" value="W1"> $4$</label>
-                    <label class="option-label"><input type="radio" name="q4" value="W2"> $12$</label>
-                    <label class="option-label"><input type="radio" name="q4" value="C" data-correct="true"> $10$</label>
-                    <label class="option-label"><input type="radio" name="q4" value="W3"> $6$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    គណនា $f'(x) = 3x^2 - 2$ ជំនួស $x=2$ គេបាន $f'(2) = 3(2)^2 - 2 = 12 - 2 = 10$។
-                </div>
+            <div class="question-card" id="q4_box">                
+                <div class="question-text">លំហាត់ ៤. គេមានស្វីតកំនត់ដោយ $u_1=1, u_2=3$ និងទំនាក់ទំនង $u_{n+2} = 3u_{n+1} - 2u_n$ ចំពោះគ្រប់ $n \ge 1$។ គណនាតម្លៃនៃតួទី $4$ ($u_4$) <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q4" value="W1"> $11$</label>                    
+                    <label class="option-label"><input type="radio" name="q4" value="C" data-correct="true"> $15$</label>                    
+                    <label class="option-label"><input type="radio" name="q4" value="W2"> $7$</label>                    
+                    <label class="option-label"><input type="radio" name="q4" value="W3"> $9$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    - ចំពោះ $n=1 \implies u_3 = 3u_2 - 2u_1 = 3(3) - 2(1) = 9 - 2 = 7$<br>
+                    - ចំពោះ $n=2 \implies u_4 = 3u_3 - 2u_2 = 3(7) - 2(3) = 21 - 6 = 15$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q5_box">
-                <div class="question-text">លំហាត់ ៥. គណនាដេរីវេនៃអនុគមន៍ $f(x) = (2x + 1)^4$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q5" value="W1"> $4(2x+1)^3$</label>
-                    <label class="option-label"><input type="radio" name="q5" value="C" data-correct="true"> $8(2x+1)^3$</label>
-                    <label class="option-label"><input type="radio" name="q5" value="W2"> $2(2x+1)^3$</label>
-                    <label class="option-label"><input type="radio" name="q5" value="W3"> $8x^3$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    តាមរូបមន្ត $(u^n)' = n \cdot u' \cdot u^{n-1}$ គេបាន $f'(x) = 4(2x+1)'(2x+1)^3 = 4(2)(2x+1)^3 = 8(2x+1)^3$។
-                </div>
+            <div class="question-card" id="q5_box">                
+                <div class="question-text">លំហាត់ ៥. ដោះស្រាយសមីការអ៊ិចស្ប៉ូណង់ស្យែល៖ $4^{x} - 6 \cdot 2^{x} + 8 = 0$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q5" value="W1"> $x = 1$</label>                    
+                    <label class="option-label"><input type="radio" name="q5" value="W2"> $x = 2$</label>                    
+                    <label class="option-label"><input type="radio" name="q5" value="C" data-correct="true"> $x = 1, x = 2$</label>                    
+                    <label class="option-label"><input type="radio" name="q5" value="W3"> $x = 0, x = 2$</label>                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    តាង $t = 2^x \, (t > 0)$ គេបានសមីការ $t^2 - 6t + 8 = 0 \implies (t-2)(t-4) = 0 \implies t=2$ ឬ $t=4$។<br>
+                    - បើ $2^x = 2 \implies x = 1$<br>
+                    - បើ $2^x = 4 \implies x = 2$។ ដូចនេះសមីការមានឫស $x=1, x=2$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q6_box">
-                <div class="question-text">លំហាត់ ៦. គណនាលីមីត៖ $\lim_{x \to +\infty} \frac{3x^2 - 5x + 1}{2x^2 + 7}$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q6" value="C" data-correct="true"> $\frac{3}{2}$</label>
-                    <label class="option-label"><input type="radio" name="q6" value="W1"> $0$</label>
-                    <label class="option-label"><input type="radio" name="q6" value="W2"> $+\infty$</label>
-                    <label class="option-label"><input type="radio" name="q6" value="W3"> $\frac{1}{7}$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    លីមីតអនន្តលើអនន្តយកដឺក្រេខ្ពស់ជាងគេ៖ $\lim_{x \to +\infty} \frac{3x^2}{2x^2} = \frac{3}{2}$។
-                </div>
+            <div class="question-card" id="q6_box">                
+                <div class="question-text">លំហាត់ ៦. រកសំណុំដំណោះស្រាយនៃវិសមីការ៖ $\left(\frac{1}{3}\right)^{2x-1} \ge \frac{1}{27}$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q6" value="C" data-correct="true"> $x \in (-\infty, 2]$</label>                    
+                    <label class="option-label"><input type="radio" name="q6" value="W1"> $x \in [2, +\infty)$</label>                    
+                    <label class="option-label"><input type="radio" name="q6" value="W2"> $x \in (-\infty, 1]$</label>                    
+                    <label class="option-label"><input type="radio" name="q6" value="W3"> $x \in [1, 2]$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    សរសេរវិសមីការជា៖ $\left(\frac{1}{3}\right)^{2x-1} \ge \left(\frac{1}{3}\right)^3$<br>
+                    ដោយសារគោល $a = \frac{1}{3} < 1$ នោះវិសមីការប្តូរទិសដៅ៖ $2x - 1 \le 3 \implies 2x \le 4 \implies x \le 2$។ ដូចនេះ $x \in (-\infty, 2]$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q7_box">
-                <div class="question-text">លំហាត់ ៧. រកមេគុណប្រាប់ទិសនៃបន្ទាត់ប៉ះនឹងខ្សែកោង $y = x^2 + 3x$ ត្រង់ខណៈ $x = 1$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q7" value="W1"> $4$</label>
-                    <label class="option-label"><input type="radio" name="q7" value="C" data-correct="true"> $5$</label>
-                    <label class="option-label"><input type="radio" name="q7" value="W2"> $3$</label>
-                    <label class="option-label"><input type="radio" name="q7" value="W3"> $2$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    មេគុណប្រាប់ទិស $m = y'(1)$ ដែល $y' = 2x + 3 \implies y'(1) = 2(1) + 3 = 5$។
-                </div>
+            <div class="question-card" id="q7_box">                
+                <div class="question-text">លំហាត់ ៧. ដោះស្រាយសមីការលោការីត៖ $\log_2(x-1) + \log_2(x+2) = 2$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q7" value="W1"> $x = -3$</label>                    
+                    <label class="option-label"><input type="radio" name="q7" value="C" data-correct="true"> $x = 2$</label>                    
+                    <label class="option-label"><input type="radio" name="q7" value="W2"> $x = 2, x = -3$</label>                    
+                    <label class="option-label"><input type="radio" name="q7" value="W3"> $x = 3$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    លក្ខខណ្ឌ៖ $x-1 > 0$ និង $x+2 > 0 \implies x > 1$។<br>
+                    សមីការទៅជា៖ $\log_2[(x-1)(x+2)] = 2 \implies x^2 + x - 2 = 2^2 \implies x^2 + x - 6 = 0$<br>
+                    សមមូល $(x-2)(x+3) = 0 \implies x = 2$ (យក) ឬ $x = -3$ (មិនយកតាមលក្ខខណ្ឌ)។ ដូចនេះ $x = 2$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q8_box">
-                <div class="question-text">លំហាត់ ៨. គណនាដេរីវេនៃអនុគមន៍ $f(x) = \cos(3x)$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q8" value="W1"> $3\sin(3x)$</label>
-                    <label class="option-label"><input type="radio" name="q8" value="C" data-correct="true"> $-3\sin(3x)$</label>
-                    <label class="option-label"><input type="radio" name="q8" value="W2"> $-\sin(3x)$</label>
-                    <label class="option-label"><input type="radio" name="q8" value="W3"> $-3\cos(3x)$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    តាមរូបមន្ត $(\cos u)' = -u' \cdot \sin u$ នាំឱ្យ $f'(x) = -(3x)'\sin(3x) = -3\sin(3x)$។
-                </div>
+            <div class="question-card" id="q8_box">                
+                <div class="question-text">លំហាត់ ៨. ရកសំណុំដំណោះស្រាយនៃវិសមីការ៖ $\log_{0.5}(2x - 4) > \log_{0.5}(x + 1)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q8" value="W1"> $x > 2$</label>                    
+                    <label class="option-label"><input type="radio" name="q8" value="W2"> $x < 5$</label>                    
+                    <label class="option-label"><input type="radio" name="q8" value="C" data-correct="true"> $2 < x < 5$</label>                    
+                    <label class="option-label"><input type="radio" name="q8" value="W3"> $x \in \emptyset$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    - លក្ខខណ្ឌ៖ $2x - 4 > 0 \implies x > 2$ និង $x + 1 > 0 \implies x > -1$ នាំឱ្យលក្ខខណ្ឌរួមគឺ $x > 2$។<br>
+                    - ដោយសារគោល $0.5 < 1$ វិសមីការប្តូរទិសដៅ៖ $2x - 4 < x + 1 \implies x < 5$។<br>
+                    ប្រសព្វជាមួយលក្ខខណ្ឌ $x > 2$ គេបានសំណុំដំណោះស្រាយ៖ $2 < x < 5$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q9_box">
-                <div class="question-text">លំហាត់ ៩. រកតួទី៥ នៃស្វីតនព្វន្តដែលស្គាល់តួទី១ $u_1 = 2$ និងផលសង្គមរួម $d = 3$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q9" value="W1"> $11$</label>
-                    <label class="option-label"><input type="radio" name="q9" value="C" data-correct="true"> $14$</label>
-                    <label class="option-label"><input type="radio" name="q9" value="W2"> $17$</label>
-                    <label class="option-label"><input type="radio" name="q9" value="W3"> $15$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    តាមរូបមន្តតួទូទៅ $u_n = u_1 + (n-1)d \implies u_5 = 2 + (5-1)3 = 2 + 12 = 14$។
-                </div>
+            <div class="question-card" id="q9_box">                
+                <div class="question-text">លំហាត់ ៩. គណនាតម្លៃប្រាកដនៃកន្សោម៖ $A = \sin\left(\frac{\pi}{6}\right) + \cos\left(\frac{\pi}{3}\right) - \tan\left(\frac{\pi}{4}\right)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q9" value="W1"> $1$</label>                    
+                    <label class="option-label"><input type="radio" name="q9" value="W2"> $\frac{1}{2}$</label>                    
+                    <label class="option-label"><input type="radio" name="q9" value="C" data-correct="true"> $0$</label>                    
+                    <label class="option-label"><input type="radio" name="q9" value="W3"> $-1$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    ជំនួសតម្លៃមុំពិសេស៖<br>
+                    $\sin\left(\frac{\pi}{6}\right) = \frac{1}{2}, \quad \cos\left(\frac{\pi}{3}\right) = \frac{1}{2}, \quad \tan\left(\frac{\pi}{4}\right) = 1$<br>
+                    នាំឱ្យ $A = \frac{1}{2} + \frac{1}{2} - 1 = 1 - 1 = 0$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q10_box">
-                <div class="question-text">លំហាត់ ១០. រកតួទី៤ នៃស្វីតធរណីមាត្រដែលស្គាល់តួទី១ $v_1 = 3$ និងផលធៀបរួម $q = 2$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q10" value="W1"> $12$</label>
-                    <label class="option-label"><input type="radio" name="q10" value="C" data-correct="true"> $24$</label>
-                    <label class="option-label"><input type="radio" name="q10" value="W2"> $48$</label>
-                    <label class="option-label"><input type="radio" name="q10" value="W3"> $18$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    តាមរូបមន្តតួទូទៅ $v_n = v_1 \cdot q^{n-1} \implies v_4 = 3 \cdot 2^{4-1} = 3 \cdot 8 = 24$។
-                </div>
+            <div class="question-card" id="q10_box">                
+                <div class="question-text">លំហាត់ ១០. បើ $\cos\theta = -\frac{3}{5}$ ហើយ $\pi < \theta < \frac{3\pi}{2}$។ គណនាតម្លៃនៃ $\sin\theta$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q10" value="W1"> $\frac{4}{5}$</label>                    
+                    <label class="option-label"><input type="radio" name="q10" value="C" data-correct="true"> $-\frac{4}{5}$</label>                    
+                    <label class="option-label"><input type="radio" name="q10" value="W2"> $\frac{16}{25}$</label>                    
+                    <label class="option-label"><input type="radio" name="q10" value="W3"> $-\frac{2}{5}$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    តាមរូបមន្តគ្រឹះត្រីកោណមាត្រ៖ $\sin^2\theta + \cos^2\theta = 1 \implies \sin^2\theta = 1 - \left(-\frac{3}{5}\right)^2 = 1 - \frac{9}{25} = \frac{16}{25}$<br>
+                    ដោយសារ $\pi < \theta < \frac{3\pi}{2}$ (មុំស្ថិតក្នុងកាដ្រង់ទី៣ ដែល $\sin\theta < 0$) នាំឱ្យ $\sin\theta = -\sqrt{\frac{16}{25}} = -\frac{4}{5}$។                
+                </div>            
             </div>
 
-            <div class="question-card" id="q11_box">
-                <div class="question-text">លំហាត់ ១១. គណនាផលបូក ១០ តួដំបូងនៃស្វីតនព្វន្ត $1, 3, 5, 7, ...$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q11" value="W1"> $50$</label>
-                    <label class="option-label"><input type="radio" name="q11" value="W2"> $90$</label>
-                    <label class="option-label"><input type="radio" name="q11" value="C" data-correct="true"> $100$</label>
-                    <label class="option-label"><input type="radio" name="q11" value="W3"> $120$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    មាន $u_1 = 1, d = 2$។ រូបមន្ត $S_n = \frac{n}{2}[2u_1 + (n-1)d] \implies S_{10} = \frac{10}{2}[2(1) + (9)2] = 5[2+18] = 100$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q12_box">
-                <div class="question-text">លំហាត់ ១២. រកប្រជាជននៅឆ្នាំទី៣ បើបច្ចុប្បន្នមានមនុស្ស $1000$ នាក់ ហើយកើនឡើង $10\%$ ជារៀងរាល់ឆ្នាំ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q12" value="W1"> $1200$</label>
-                    <label class="option-label"><input type="radio" name="q12" value="C" data-correct="true"> $1331$</label>
-                    <label class="option-label"><input type="radio" name="q12" value="W2"> $1300$</label>
-                    <label class="option-label"><input type="radio" name="q12" value="W3"> $1210$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    នេះជាម៉ូដែលស្វីតធរណីមាត្រ៖ $P_n = P_0(1+r)^n \implies P_3 = 1000(1+0.1)^3 = 1000(1.331) = 1331$ នាក់។
-                </div>
-            </div>
-
-            <div class="question-card" id="q13_box">
-                <div class="question-text">លំហាត់ ១៣. គណនាលីមីត៖ $\lim_{x \to 3} \frac{x^2 - 9}{x - 3}$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q13" value="C" data-correct="true"> $6$</label>
-                    <label class="option-label"><input type="radio" name="q13" value="W1"> $3$</label>
-                    <label class="option-label"><input type="radio" name="q13" value="W2"> $0$</label>
-                    <label class="option-label"><input type="radio" name="q13" value="W3"> $9$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    $\lim_{x \to 3} \frac{(x-3)(x+3)}{x-3} = \lim_{x \to 3}(x+3) = 3+3=6$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q14_box">
-                <div class="question-text">លំហាត់ ១៤. ក្នុងប្រអប់មួយមានឃ្លីក្រហម $4$ និងឃ្លីខៀវ $6$។ ចាប់យកឃ្លី ២ ព្រមគ្នាដោយចៃដន្យ។ រកចំនួនករណីអាច <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q14" value="W1"> $10$</label>
-                    <label class="option-label"><input type="radio" name="q14" value="W2"> $24$</label>
-                    <label class="option-label"><input type="radio" name="q14" value="C" data-correct="true"> $45$</label>
-                    <label class="option-label"><input type="radio" name="q14" value="W3"> $90$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    ចំនួនករណីអាចគឺការរួមផ្សំ $C(10, 2) = \frac{10!}{2!8!} = \frac{10 \times 9}{2} = 45$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q15_box">
-                <div class="question-text">លំហាត់ ១៥. បោះគ្រាប់ឡុកឡាក់មួយគ្រាប់ចោល ១ ដង។ រកប្រូបាបដើម្បីបានលេខជាចំនួនគូ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q15" value="C" data-correct="true"> $\frac{1}{2}$</label>
-                    <label class="option-label"><input type="radio" name="q15" value="W1"> $\frac{1}{3}$</label>
-                    <label class="option-label"><input type="radio" name="q15" value="W2"> $\frac{2}{3}$</label>
-                    <label class="option-label"><input type="radio" name="q15" value="W3"> $\frac{1}{6}$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    ករណីអាច $N = \{1, 2, 3, 4, 5, 6\} \implies 6$។ ករណីស្រប (លេខគូ) $A = \{2, 4, 6\} \implies 3$។ ប្រូបាប $P(A) = \frac{3}{6} = \frac{1}{2}$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q16_box">
-                <div class="question-text">លំហាត់ ១៦. រកអាស៊ីមតូតឈរនៃអនុគមន៍ $y = \frac{x+1}{x-2}$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q16" value="C" data-correct="true"> $x = 2$</label>
-                    <label class="option-label"><input type="radio" name="q16" value="W1"> $y = 1$</label>
-                    <label class="option-label"><input type="radio" name="q16" value="W2"> $x = -1$</label>
-                    <label class="option-label"><input type="radio" name="q16" value="W3"> $y = 2$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    អាស៊ីមតូតឈររកបានតាមរយៈតម្លៃដែលធ្វើឱ្យភាគបែងស្មើ $0$ គឺ $x - 2 = 0 \implies x = 2$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q17_box">
-                <div class="question-text">លំហាត់ ១៧. រកអាស៊ីមតូតដេកនៃអនុគមន៍ $y = \frac{2x - 3}{x + 4}$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q17" value="W1"> $y = -3$</label>
-                    <label class="option-label"><input type="radio" name="q17" value="W2"> $x = -4$</label>
-                    <label class="option-label"><input type="radio" name="q17" value="C" data-correct="true"> $y = 2$</label>
-                    <label class="option-label"><input type="radio" name="q17" value="W3"> $y = 1$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    អាស៊ីមតូតដេកគឺលីមីតអនន្ត៖ $y = \lim_{x \to \infty} \frac{2x-3}{x+4} = 2$។ ដូចនេះបន្ទាត់ $y = 2$ ជាអាស៊ីមតូតដេក។
-                </div>
-            </div>
-
-            <div class="question-card" id="q18_box">
-                <div class="question-text">លំហាត់ ១៨. រកកូអរដោនេវ៉ិចទ័រ $\vec{u} = 2\vec{i} - 3\vec{j}$ ក្នុងប្លង់ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q18" value="W1"> $(3, 2)$</label>
-                    <label class="option-label"><input type="radio" name="q18" value="C" data-correct="true"> $(2, -3)$</label>
-                    <label class="option-label"><input type="radio" name="q18" value="W2"> $(-2, 3)$</label>
-                    <label class="option-label"><input type="radio" name="q18" value="W3"> $(2, 3)$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    វ៉ិចទ័រ $\vec{u} = x\vec{i} + y\vec{j}$ មានកូអរដោនេ $(x, y)$។ ដូចនេះ $\vec{u} = 2\vec{i} - 3\vec{j} \implies (2, -3)$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q19_box">
-                <div class="question-text">លំហាត់ ១៩. គណនាផលគុណស្កាលែនៃពីរវ៉ិចទ័រ $\vec{u}(1, 3)$ និង $\vec{v}(4, -1)$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q19" value="C" data-correct="true"> $1$</label>
-                    <label class="option-label"><input type="radio" name="q19" value="W1"> $7$</label>
-                    <label class="option-label"><input type="radio" name="q19" value="W2"> $0$</label>
-                    <label class="option-label"><input type="radio" name="q19" value="W3"> $-1$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    $\vec{u} \cdot \vec{v} = x \cdot x' + y \cdot y' = 1(4) + 3(-1) = 4 - 3 = 1$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q20_box">
-                <div class="question-text">លំហាត់ ២០. បើ $\vec{u}$ និង $\vec{v}$ ជាពីរវ៉ិចទ័រអកតូកូណាល់ (កែងគ្នា) នោះផលគុណស្កាលែរបស់វាស្មើនឹងប៉ុន្មាន? <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q20" value="W1"> $1$</label>
-                    <label class="option-label"><input type="radio" name="q20" value="C" data-correct="true"> $0$</label>
-                    <label class="option-label"><input type="radio" name="q20" value="W2"> $-1$</label>
-                    <label class="option-label"><input type="radio" name="q20" value="W3"> មិនអាចកំណត់បាន</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    តាមលក្ខណៈគ្រឹះ៖ ពីរវ៉ិចទ័រកែងគ្នាលុះត្រាតែផលគុណស្កាលែរបស់វាស្មើ $0$ ($\cos 90^\circ = 0$)។
-                </div>
-            </div>
-
-            <div class="question-card" id="q21_box">
-                <div class="question-text">លំហាត់ ២១. រកចម្ងាយរវាងពីរចំណុច $A(1, 2)$ និង $B(4, 6)$ ក្នុងប្លង់ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q21" value="W1"> $7$</label>
-                    <label class="option-label"><input type="radio" name="q21" value="C" data-correct="true"> $5$</label>
-                    <label class="option-label"><input type="radio" name="q21" value="W2"> $\sqrt{7}$</label>
-                    <label class="option-label"><input type="radio" name="q21" value="W3"> $25$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    $AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} = \sqrt{(4-1)^2 + (6-2)^2} = \sqrt{3^2 + 4^2} = \sqrt{25} = 5$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q22_box">
-                <div class="question-text">លំហាត់ ២២. រកតម្លៃប្រាកដនៃ $\cos\left(\frac{\pi}{3}\right)$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q22" value="W1"> $\frac{\sqrt{3}}{2}$</label>
-                    <label class="option-label"><input type="radio" name="q22" value="C" data-correct="true"> $\frac{1}{2}$</label>
-                    <label class="option-label"><input type="radio" name="q22" value="W2"> $\frac{\sqrt{2}}{2}$</label>
-                    <label class="option-label"><input type="radio" name="q22" value="W3"> $1$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    តាមតារាងតម្លៃមុំពិសេសត្រីកោណមាត្រ៖ $\cos\left(\frac{\pi}{3}\right) = \cos(60^\circ) = \frac{1}{2}$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q23_box">
-                <div class="question-text">លំហាត់ ២៣. ដោះស្រាយសមីការ៖ $\log_2(x) = 3$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q23" value="W1"> $6$</label>
-                    <label class="option-label"><input type="radio" name="q23" value="W2"> $5$</label>
-                    <label class="option-label"><input type="radio" name="q23" value="C" data-correct="true"> $8$</label>
-                    <label class="option-label"><input type="radio" name="q23" value="W3"> $9$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    តាមនិយមន័យឡូការីត៖ $\log_a(x) = b \implies x = a^b$។ ដូចនេះ $x = 2^3 = 8$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q24_box">
-                <div class="question-text">លំហាត់ ២៤. រកតម្លៃ $x$ នៃសមីការអិចស្ប៉ូណង់ស្យែល៖ $3^{2x - 1} = 27$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q24" value="W1"> $1$</label>
-                    <label class="option-label"><input type="radio" name="q24" value="C" data-correct="true"> $2$</label>
-                    <label class="option-label"><input type="radio" name="q24" value="W2"> $3$</label>
-                    <label class="option-label"><input type="radio" name="q24" value="W3"> $4$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    សរសេរ៖ $3^{2x - 1} = 3^3 \implies 2x - 1 = 3 \implies 2x = 4 \implies x = 2$។
-                </div>
-            </div>
-
-            <div class="question-card" id="q25_box">
-                <div class="question-text">លំហាត់ ២៥. រកចំណុចកំពូលនៃប៉ារ៉ាបូលដែលមានសមីការ $y = (x - 2)^2 + 3$ <span class="points">(៥ ពិន្ទុ)</span></div>
-                <div class="options-container">
-                    <label class="option-label"><input type="radio" name="q25" value="W1"> $(-2, 3)$</label>
-                    <label class="option-label"><input type="radio" name="q25" value="W2"> $(2, -3)$</label>
-                    <label class="option-label"><input type="radio" name="q25" value="C" data-correct="true"> $(2, 3)$</label>
-                    <label class="option-label"><input type="radio" name="q25" value="W3"> $(3, 2)$</label>
-                </div>
-                <div class="solution-box">
-                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>
-                    សមីការស្តង់ដាប៉ារ៉ាបូល $y = a(x - h)^2 + k$ មានកំពូល $V(h, k)$។ ដូចនេះកំពូលគឺ $V(2, 3)$។
-                </div>
-            </div>
-
-            <button type="submit" class="submit-btn" id="submitBtn">បញ្ជូនចម្លើយ (Submit)</button>
+            <button type="submit" class="submit-btn">📥 បញ្ជូនចម្លើយ និងពិនិត្យលទ្ធផល</button>
         </form>
     </div>
 
     <script>
-        // មុខងារគ្របដណ្តប់ការរុះរើ (Shuffle) ជម្រើសចម្លើយនៅពេលបើកទំព័រ
-        document.querySelectorAll('.options-container').forEach(container => {
-            const labels = Array.from(container.children);
-            // ប្រើប្រាស់វិធីសាស្ត្រគណនាចៃដន្យរុះរើ
-            labels.sort(() => Math.random() - 0.5);
-            container.innerHTML = '';
-            labels.forEach(label => container.appendChild(label));
-        });
-
-        // ប្រព័ន្ធរាប់ម៉ោងរាប់ថយក្រោយ ១៥០ នាទី
+        // កូដកម្មវិធី JavaScript ដំណើរការម៉ោង និងការកែពិន្ទុស្វ័យប្រវត្ត
         let totalSeconds = 150 * 60;
         const timeDisplay = document.getElementById('timeDisplay');
         
-        const timerInterval = setInterval(() => {
-            if (totalSeconds <= 0) {
-                clearInterval(timerInterval);
-                timeDisplay.textContent = "អស់ម៉ោង!";
-                document.getElementById('quizForm').submit();
-            } else {
+        function updateTimer() {
+            let minutes = Math.floor(totalSeconds / 60);
+            let seconds = totalSeconds % 60;
+            
+            // បំលែងជាលេខខ្មែរសម្រាប់ការបង្ហាញ
+            let khmerMinutes = minutes.toString().replace(/\d/g, d => '០១២៣៤៥៦៧៨៩'[d]);
+            let khmerSeconds = seconds.toString().padStart(2, '0').replace(/\d/g, d => '០១២៣៤៥៦៧៨៩'[d]);
+            
+            timeDisplay.textContent = `${khmerMinutes}:${khmerSeconds}`;
+            if(totalSeconds > 0) {
                 totalSeconds--;
-                let minutes = Math.floor(totalSeconds / 60);
-                let seconds = totalSeconds % 60;
-                timeDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            } else {
+                clearInterval(timerInterval);
+                alert("អស់ពេលប្រឡងហើយ!");
+                document.getElementById('quizForm').submit();
             }
-        }, 1000);
+        }
+        const timerInterval = setInterval(updateTimer, 1000);
 
-        // មុខងារពេលសិស្សចុច Submit បញ្ជូនការប្រឡង
         function submitExam(event) {
             event.preventDefault();
-
-            const name = document.getElementById('studentName').value.trim();
-            const sClass = document.getElementById('studentClass').value.trim();
-
-            if (!name || !sClass) {
-                alert("សូមបំពេញឈ្មោះ និងថ្នាក់របស់អ្នកជាមុនសិន!");
+            
+            const name = document.getElementById('studentName').value;
+            const sClass = document.getElementById('studentClass').value;
+            
+            if(!name || !sClass) {
+                alert("សូមបំពេញឈ្មោះ និងថ្នាក់របស់លោកអ្នកជាមុនសិន!");
                 return;
             }
 
-            // ឈប់រាប់ម៉ោង
             clearInterval(timerInterval);
-
             let score = 0;
-            const totalQuestions = 25;
-            const pointsPerQuestion = 5;
-
-            // ត្រួតពិនិត្យចម្លើយតាមលំហាត់នីមួយៗ
-            for (let i = 1; i <= totalQuestions; i++) {
+            const totalQuestions = 10;
+            
+            // ពិនិត្យចម្លើយ
+            for(let i = 1; i <= totalQuestions; i++) {
+                const qBox = document.getElementById(`q${i}_box`);
                 const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                const cardBox = document.getElementById(`q${i}_box`);
                 
-                if (selected && selected.hasAttribute('data-correct')) {
-                    score += pointsPerQuestion;
-                    cardBox.classList.add('correct-flash');
+                if(selected && selected.hasAttribute('data-correct')) {
+                    score += 5;
+                    qBox.classList.add('correct-flash');
                 } else {
-                    cardBox.classList.add('incorrect-flash');
+                    qBox.classList.add('incorrect-flash');
                 }
             }
 
-            // បង្ហាញប្រអប់លទ្ធផលនៅខាងលើ
-            document.getElementById('scoreDisplay').textContent = score;
-            document.getElementById('studentResultName').textContent = `សិស្សឈ្មោះ៖ ${name} | ថ្នាក់៖ ${sClass}`;
-            
-            let timeSpentMinutes = 150 - Math.ceil(totalSeconds / 60);
-            document.getElementById('timeSpentDisplay').textContent = `የប្រើប្រាស់ម៉ោង៖ អស់ប្រហែល ${timeSpentMinutes} នាទី`;
-            
-            document.getElementById('resultBox').style.display = 'block';
+            // បង្ហាញលទ្ធផល
             document.getElementById('infoBox').style.display = 'none';
-            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('resultBox').style.display = 'block';
+            document.getElementById('studentResultName').textContent = `សិស្សឈ្មោះ៖ ${name} | ថ្នាក់៖ ${sClass}`;
+            document.getElementById('scoreDisplay').textContent = score.toString().replace(/\d/g, d => '០១២៣៤៥៦៧៨៩'[d]);
+            
+            let timeSpent = (150 * 60) - totalSeconds;
+            let spentMin = Math.floor(timeSpent / 60);
+            let spentSec = timeSpent % 60;
+            document.getElementById('timeSpentDisplay').textContent = `រយៈពេលប្រើប្រាស់៖ ${spentMin} នាទី ${spentSec} វិនាទី`;
 
-            // បង្ហាញដំណោះស្រាយលម្អិតទាំងអស់
-            document.querySelectorAll('.solution-box').forEach(box => {
-                box.style.display = 'block';
-            });
+            // បង្ហាញប្រអប់ដំណោះស្រាយទាំងអស់
+            const solutions = document.querySelectorAll('.solution-box');
+            solutions.forEach(box => box.style.display = 'block');
 
-            // រំកិលអេក្រង់ទៅលើគេដើម្បីមើលលទ្ធផល
             window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // អាប់ដេតរូបមន្តគណិតវិទ្យា MathJax ឡើងវិញ
-            if (window.MathJax) {
-                MathJax.typeset();
-            }
         }
     </script>
-</body>
-</html>
+</body></html>
