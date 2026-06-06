@@ -30,11 +30,11 @@
         .correct-flash { background: #d4edda !important; border-color: #28a745 !important; font-weight: bold; }        .incorrect-flash { background: #f8d7da !important; border-color: #dc3545 !important; }    </style></head><body>
     <div class="exam-container">        <div class="header">            <div class="kingdom">ព្រះរាជាណាចក្រកម្ពុជា</div>            <div class="kingdom" style="font-size: 13px;">ជាតិ សាសនា ព្រះមហាក្សត្រ</div>            <div class="exam-title">វិញ្ញាសាជ្រើសរើសពិសេស ត្រៀមប្រឡងឆមាស ថ្នាក់ទី១១ (វិញ្ញាសាទី១)</div>            <div class="author">រៀបរៀងដោយ៖ លោកគ្រូ រស់ មករា</div>        </div>
         <div class="student-info-box" id="infoBox">            <div class="input-group">                <label for="studentName">នាមត្រកូល និងនាមខ្លួនសិស្ស *</label>                <input type="text" id="studentName" placeholder="ឧទាហរណ៍៖ មាស ឧត្តម" required>            </div>            <div class="input-group">                <label for="studentClass">ថ្នាក់/បន្ទប់ *</label>                <input type="text" id="studentClass" placeholder="ឧទាហរណ៍៖ ១១ A" required>            </div>        </div>
-        <div class="sticky-bar">            <div class="timer">ម៉ោងរាប់ថយក្រោយ៖ <span id="timeDisplay">១៥០:០០</span></div>            <div style="font-weight: bold;">ពិន្ទុរុបរួម៖ ៥០</div>        </div>
-        <div class="result-box" id="resultBox">            <div class="result-title">លទ្ធផលប្រឡងទទួលបាន</div>            <p id="studentResultName" style="font-weight: bold;"></p>            <p style="font-size: 24px; color: #c0392b; font-weight: bold;">ពិន្ទុ៖ <span id="scoreDisplay">0</span> / ៥០</p>            <p id="timeSpentDisplay" style="font-style: italic; color: #7f8c8d;"></p>            <p style="color: #2980b9; font-weight: bold; margin-top: 10px;">👇 សូមពិនិត្យមើលដំណោះស្រាយលម្អិតនៅខាងក្រោមលំហាត់នីមួយៗ!</p>        </div>
+        <div class="sticky-bar">            <div class="timer">ម៉ោងរាប់ថយក្រោយ៖ <span id="timeDisplay">១៥០:០០</span></div>            <div style="font-weight: bold;">ពិន្ទុរុបរួម៖ ១០០</div>        </div>
+        <div class="result-box" id="resultBox">            <div class="result-title">លទ្ធផលប្រឡងទទួលបាន</div>            <p id="studentResultName" style="font-weight: bold;"></p>            <p style="font-size: 24px; color: #c0392b; font-weight: bold;">ពិន្ទុ៖ <span id="scoreDisplay">0</span> / ១០០</p>            <p id="timeSpentDisplay" style="font-style: italic; color: #7f8c8d;"></p>            <p style="color: #2980b9; font-weight: bold; margin-top: 10px;">👇 សូមពិនិត្យមើលដំណោះស្រាយលម្អិតនៅខាងក្រោមលំហាត់នីមួយៗ!</p>        </div>
         <form id="quizForm" onsubmit="submitExam(event)">                        
             <div class="question-card" id="q1_box">                
-                <div class="question-text">លំហាត់ ១. រកតួទី $15$ នៃស្វីតនព្វន្ត $3, 7, 11, 15, ...$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ១. រកតួទី $15$ នៃស្វីតនព្វន្ត $3, 7, 11, 15, \dots$ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
                     <label class="option-label"><input type="radio" name="q1" value="W1"> $55$</label>                    
                     <label class="option-label"><input type="radio" name="q1" value="C" data-correct="true"> $59$</label>                    
@@ -43,147 +43,273 @@
                 </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    ស្វីតនព្វន្តមានតួទី១ $u_1 = 3$ និងផលសង្គមរួម $d = 7 - 3 = 4$។<br>
-                    តាមរូបមន្តតួទូទៅ៖ $u_n = u_1 + (n-1)d$<br>
-                    នាំឱ្យ $u_{15} = 3 + (15-1) \times 4 = 3 + 14 \times 4 = 3 + 56 = 59$។                
+                    ស្វីតនព្វន្តមានតួទី១ $u_1 = 3$ និងផលសង្គមរួម $d = 7 - 3 = 4$។ តាមរូបមន្តតួទូទៅ៖ $u_n = u_1 + (n-1)d \implies u_{15} = 3 + (15-1) \times 4 = 3 + 56 = 59$។                
                 </div>            
             </div>
 
             <div class="question-card" id="q2_box">                
-                <div class="question-text">លំហាត់ ២. រកតួទី $6$ នៃស្វីតធរណីមាត្រដែលស្គាល់តួទី១ $v_1 = 2$ និងផលធៀបរួម $q = 3$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ២. រកតួទី $20$ នៃស្វីតនព្វន្ត $5, 11, 17, 23, \dots$ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
-                    <label class="option-label"><input type="radio" name="q2" value="W1"> $162$</label>                    
-                    <label class="option-label"><input type="radio" name="q2" value="W2"> $243$</label>                    
-                    <label class="option-label"><input type="radio" name="q2" value="C" data-correct="true"> $486$</label>                    
-                    <label class="option-label"><input type="radio" name="q2" value="W3"> $1458$</label>                
+                    <label class="option-label"><input type="radio" name="q2" value="W1"> $114$</label>                    
+                    <label class="option-label"><input type="radio" name="q2" value="C" data-correct="true"> $119$</label>                    
+                    <label class="option-label"><input type="radio" name="q2" value="W2"> $125$</label>                    
+                    <label class="option-label"><input type="radio" name="q2" value="W3"> $120$</label>                
                 </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    តាមរូបមន្តតួទូទៅនៃស្វីតធរណីមាត្រ៖ $v_n = v_1 \times q^{n-1}$<br>
-                    នាំឱ្យ $v_6 = 2 \times 3^{6-1} = 2 \times 3^5 = 2 \times 243 = 486$។                
+                    មានតួទី១ $u_1 = 5$ និងផលសង្គមរួម $d = 11 - 5 = 6$។ នាំឱ្យតួទី២០ គឺ $u_{20} = 5 + (20-1) \times 6 = 5 + 114 = 119$។                
                 </div>            
             </div>
 
             <div class="question-card" id="q3_box">                
-                <div class="question-text">លំហាត់ ៣. គណនាតម្លៃនៃផលបូក៖ $\sum_{k=1}^{20} (2k + 1)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ៣. ក្នុងស្វីតនព្វន្តមួយ គេស្គាល់តួទី $3$ គឺ $u_3 = 12$ និងតួទី $8$ គឺ $u_8 = 32$។ រកតួទី១ ($u_1$) និងផលសង្គមរួម ($d$)។ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
-                    <label class="option-label"><input type="radio" name="q3" value="C" data-correct="true"> $440$</label>                    
-                    <label class="option-label"><input type="radio" name="q3" value="W1"> $420$</label>                    
-                    <label class="option-label"><input type="radio" name="q3" value="W2"> $400$</label>                    
-                    <label class="option-label"><input type="radio" name="q3" value="W3"> $460$</label>                
+                    <label class="option-label"><input type="radio" name="q3" value="W1"> $u_1 = 2, d = 5$</label>                    
+                    <label class="option-label"><input type="radio" name="q3" value="C" data-correct="true"> $u_1 = 4, d = 4$</label>                    
+                    <label class="option-label"><input type="radio" name="q3" value="W2"> $u_1 = 4, d = 5$</label>                    
+                    <label class="option-label"><input type="radio" name="q3" value="W3"> $u_1 = 2, d = 4$</label>                
                 </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    ប្រើលក្ខណៈស៊ិចម៉ា៖ $\sum_{k=1}^{20} (2k + 1) = 2\sum_{k=1}^{20} k + \sum_{k=1}^{20} 1$<br>
-                    $= 2 \times \frac{20 \times 21}{2} + 20 = 420 + 20 = 440$។                
+                    តាមទំនាក់ទំនងតួ៖ $u_8 - u_3 = 5d \implies 32 - 12 = 5d \implies d = 4$។ រកតួទី១៖ $u_1 = u_3 - 2d = 12 - 2(4) = 4$។                
                 </div>            
             </div>
 
             <div class="question-card" id="q4_box">                
-                <div class="question-text">លំហាត់ ៤. គេមានស្វីតកំនត់ដោយ $u_1=1, u_2=3$ និងទំនាក់ទំនង $u_{n+2} = 3u_{n+1} - 2u_n$ ចំពោះគ្រប់ $n \ge 1$។ គណនាតម្លៃនៃតួទី $4$ ($u_4$) <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ៤. រកតួទី $6$ នៃស្វីតធរណីមាត្រដែលស្គាល់តួទី១ $v_1 = 2$ និងផលធៀបរួម $q = 3$ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
-                    <label class="option-label"><input type="radio" name="q4" value="W1"> $11$</label>                    
-                    <label class="option-label"><input type="radio" name="q4" value="C" data-correct="true"> $15$</label>                    
-                    <label class="option-label"><input type="radio" name="q4" value="W2"> $7$</label>                    
-                    <label class="option-label"><input type="radio" name="q4" value="W3"> $9$</label>                
+                    <label class="option-label"><input type="radio" name="q4" value="W1"> $162$</label>                    
+                    <label class="option-label"><input type="radio" name="q4" value="W2"> $243$</label>                    
+                    <label class="option-label"><input type="radio" name="q4" value="C" data-correct="true"> $486$</label>                    
+                    <label class="option-label"><input type="radio" name="q4" value="W3"> $1458$</label>                
                 </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    - ចំពោះ $n=1 \implies u_3 = 3u_2 - 2u_1 = 3(3) - 2(1) = 9 - 2 = 7$<br>
-                    - ចំពោះ $n=2 \implies u_4 = 3u_3 - 2u_2 = 3(7) - 2(3) = 21 - 6 = 15$។                
+                    តាមរូបមន្តតួទូទៅ៖ $v_n = v_1 \times q^{n-1} \implies v_6 = 2 \times 3^{6-1} = 2 \times 243 = 486$។                
                 </div>            
             </div>
 
             <div class="question-card" id="q5_box">                
-                <div class="question-text">លំហាត់ ៥. ដោះស្រាយសមីការអ៊ិចស្ប៉ូណង់ស្យែល៖ $4^{x} - 6 \cdot 2^{x} + 8 = 0$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ៥. រកតួទី $7$ នៃស្វីតធរណីមាត្រ $3, 6, 12, 24, \dots$ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
-                    <label class="option-label"><input type="radio" name="q5" value="W1"> $x = 1$</label>                    
-                    <label class="option-label"><input type="radio" name="q5" value="W2"> $x = 2$</label>                    
-                    <label class="option-label"><input type="radio" name="q5" value="C" data-correct="true"> $x = 1, x = 2$</label>                    
-                    <label class="option-label"><input type="radio" name="q5" value="W3"> $x = 0, x = 2$</label>                </div>                
+                    <label class="option-label"><input type="radio" name="q5" value="W1"> $96$</label>                    
+                    <label class="option-label"><input type="radio" name="q5" value="C" data-correct="true"> $192$</label>                    
+                    <label class="option-label"><input type="radio" name="q5" value="W2"> $384$</label>                    
+                    <label class="option-label"><input type="radio" name="q5" value="W3"> $128$</label>                
+                </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    តាង $t = 2^x \, (t > 0)$ គេបានសមីការ $t^2 - 6t + 8 = 0 \implies (t-2)(t-4) = 0 \implies t=2$ ឬ $t=4$។<br>
-                    - បើ $2^x = 2 \implies x = 1$<br>
-                    - បើ $2^x = 4 \implies x = 2$។ ដូចនេះសមីការមានឫស $x=1, x=2$។                
+                    មានតួទី១ $v_1 = 3$ និងផលធៀបរួម $q = \frac{6}{3} = 2$។ នាំឱ្យ $v_7 = 3 \times 2^{7-1} = 3 \times 64 = 192$។                
                 </div>            
             </div>
 
             <div class="question-card" id="q6_box">                
-                <div class="question-text">លំហាត់ ៦. រកសំណុំដំណោះស្រាយនៃវិសមីការ៖ $\left(\frac{1}{3}\right)^{2x-1} \ge \frac{1}{27}$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ៦. គណនាផលបូក $6$ តួដំបូងនៃស្វីតធរណីមាត្រ $2, -6, 18, -54, \dots$ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
-                    <label class="option-label"><input type="radio" name="q6" value="C" data-correct="true"> $x \in (-\infty, 2]$</label>                    
-                    <label class="option-label"><input type="radio" name="q6" value="W1"> $x \in [2, +\infty)$</label>                    
-                    <label class="option-label"><input type="radio" name="q6" value="W2"> $x \in (-\infty, 1]$</label>                    
-                    <label class="option-label"><input type="radio" name="q6" value="W3"> $x \in [1, 2]$</label>                
+                    <label class="option-label"><input type="radio" name="q6" value="C" data-correct="true"> $-364$</label>                    
+                    <label class="option-label"><input type="radio" name="q6" value="W1"> $364$</label>                    
+                    <label class="option-label"><input type="radio" name="q6" value="W2"> $-182$</label>                    
+                    <label class="option-label"><input type="radio" name="q6" value="W3"> $182$</label>                
                 </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    សរសេរវិសមីការជា៖ $\left(\frac{1}{3}\right)^{2x-1} \ge \left(\frac{1}{3}\right)^3$<br>
-                    ដោយសារគោល $a = \frac{1}{3} < 1$ នោះវិសមីការប្តូរទិសដៅ៖ $2x - 1 \le 3 \implies 2x \le 4 \implies x \le 2$។ ដូចនេះ $x \in (-\infty, 2]$។                
+                    มี $v_1 = 2, q = -3$។ រូបមន្តផលបូក៖ $S_n = v_1 \times \frac{1-q^n}{1-q} \implies S_6 = 2 \times \frac{1-(-3)^6}{1-(-3)} = 2 \times \frac{1-729}{4} = -364$។                
                 </div>            
             </div>
 
             <div class="question-card" id="q7_box">                
-                <div class="question-text">លំហាត់ ៧. ដោះស្រាយសមីការលោការីត៖ $\log_2(x-1) + \log_2(x+2) = 2$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ៧. គណនាតម្លៃនៃផលបូក៖ $\sum_{k=1}^{20} (2k + 1)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
-                    <label class="option-label"><input type="radio" name="q7" value="W1"> $x = -3$</label>                    
-                    <label class="option-label"><input type="radio" name="q7" value="C" data-correct="true"> $x = 2$</label>                    
-                    <label class="option-label"><input type="radio" name="q7" value="W2"> $x = 2, x = -3$</label>                    
-                    <label class="option-label"><input type="radio" name="q7" value="W3"> $x = 3$</label>                
+                    <label class="option-label"><input type="radio" name="q7" value="C" data-correct="true"> $440$</label>                    
+                    <label class="option-label"><input type="radio" name="q7" value="W1"> $420$</label>                    
+                    <label class="option-label"><input type="radio" name="q7" value="W2"> $400$</label>                    
+                    <label class="option-label"><input type="radio" name="q7" value="W3"> $460$</label>                
                 </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    លក្ខខណ្ឌ៖ $x-1 > 0$ និង $x+2 > 0 \implies x > 1$។<br>
-                    សមីការទៅជា៖ $\log_2[(x-1)(x+2)] = 2 \implies x^2 + x - 2 = 2^2 \implies x^2 + x - 6 = 0$<br>
-                    សមមូល $(x-2)(x+3) = 0 \implies x = 2$ (យក) ឬ $x = -3$ (មិនយកតាមលក្ខខណ្ឌ)។ ដូចនេះ $x = 2$។                
+                    $\sum_{k=1}^{20} (2k + 1) = 2\sum_{k=1}^{20} k + \sum_{k=1}^{20} 1 = 2 \times \frac{20 \times 21}{2} + 20 = 420 + 20 = 440$។                
                 </div>            
             </div>
 
             <div class="question-card" id="q8_box">                
-                <div class="question-text">លំហាត់ ៨. ရកសំណុំដំណោះស្រាយនៃវិសមីការ៖ $\log_{0.5}(2x - 4) > \log_{0.5}(x + 1)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ៨. គណនាតម្លៃនៃផលបូក៖ $\sum_{k=1}^{15} (3k - 2)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
-                    <label class="option-label"><input type="radio" name="q8" value="W1"> $x > 2$</label>                    
-                    <label class="option-label"><input type="radio" name="q8" value="W2"> $x < 5$</label>                    
-                    <label class="option-label"><input type="radio" name="q8" value="C" data-correct="true"> $2 < x < 5$</label>                    
-                    <label class="option-label"><input type="radio" name="q8" value="W3"> $x \in \emptyset$</label>                
+                    <label class="option-label"><input type="radio" name="q8" value="W1"> $315$</label>                    
+                    <label class="option-label"><input type="radio" name="q8" value="C" data-correct="true"> $330$</label>                    
+                    <label class="option-label"><input type="radio" name="q8" value="W2"> $345$</label>                    
+                    <label class="option-label"><input type="radio" name="q8" value="W3"> $360$</label>                
                 </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    - លក្ខខណ្ឌ៖ $2x - 4 > 0 \implies x > 2$ និង $x + 1 > 0 \implies x > -1$ នាំឱ្យលក្ខខណ្ឌរួមគឺ $x > 2$។<br>
-                    - ដោយសារគោល $0.5 < 1$ វិសមីការប្តូរទិសដៅ៖ $2x - 4 < x + 1 \implies x < 5$។<br>
-                    ប្រសព្វជាមួយលក្ខខណ្ឌ $x > 2$ គេបានសំណុំដំណោះស្រាយ៖ $2 < x < 5$។                
+                    $3\sum_{k=1}^{15} k - \sum_{k=1}^{15} 2 = 3 \times \frac{15 \times 16}{2} - (2 \times 15) = 360 - 30 = 330$។                
                 </div>            
             </div>
 
             <div class="question-card" id="q9_box">                
-                <div class="question-text">លំហាត់ ៩. គណនាតម្លៃប្រាកដនៃកន្សោម៖ $A = \sin\left(\frac{\pi}{6}\right) + \cos\left(\frac{\pi}{3}\right) - \tan\left(\frac{\pi}{4}\right)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ៩. គណនាផលបូកអនន្ត៖ $\sum_{n=1}^{+\infty} \left(\frac{2}{5}\right)^n$ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
-                    <label class="option-label"><input type="radio" name="q9" value="W1"> $1$</label>                    
-                    <label class="option-label"><input type="radio" name="q9" value="W2"> $\frac{1}{2}$</label>                    
-                    <label class="option-label"><input type="radio" name="q9" value="C" data-correct="true"> $0$</label>                    
-                    <label class="option-label"><input type="radio" name="q9" value="W3"> $-1$</label>                
+                    <label class="option-label"><input type="radio" name="q9" value="C" data-correct="true"> $\frac{2}{3}$</label>                    
+                    <label class="option-label"><input type="radio" name="q9" value="W1"> $\frac{5}{3}$</label>                    
+                    <label class="option-label"><input type="radio" name="q9" value="W2"> $\frac{2}{5}$</label>                    
+                    <label class="option-label"><input type="radio" name="q9" value="W3"> $1$</label>                
                 </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    ជំនួសតម្លៃមុំពិសេស៖<br>
-                    $\sin\left(\frac{\pi}{6}\right) = \frac{1}{2}, \quad \cos\left(\frac{\pi}{3}\right) = \frac{1}{2}, \quad \tan\left(\frac{\pi}{4}\right) = 1$<br>
-                    នាំឱ្យ $A = \frac{1}{2} + \frac{1}{2} - 1 = 1 - 1 = 0$។                
+                    នេះជាផលបូកស្វីតធរណីមាត្រអនន្តថយ ដែលមាន $a = \frac{2}{5}$ និង $q = \frac{2}{5}$។ រូបមន្ត $S_{\infty} = \frac{a}{1-q} = \frac{2/5}{1 - 2/5} = \frac{2/5}{3/5} = \frac{2}{3}$។                
                 </div>            
             </div>
 
             <div class="question-card" id="q10_box">                
-                <div class="question-text">លំហាត់ ១០. បើ $\cos\theta = -\frac{3}{5}$ ហើយ $\pi < \theta < \frac{3\pi}{2}$។ គណនាតម្លៃនៃ $\sin\theta$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="question-text">លំហាត់ ១០. គេមានស្វីតកំណត់ដោយ $u_1=1, u_2=3$ និងទំនាក់ទំនង $u_{n+2} = 3u_{n+1} - 2u_n$។ គណនាតម្លៃនៃ $u_4$ <span class="points">(៥ ពិន្ទុ)</span></div>                
                 <div class="options-container">                    
-                    <label class="option-label"><input type="radio" name="q10" value="W1"> $\frac{4}{5}$</label>                    
-                    <label class="option-label"><input type="radio" name="q10" value="C" data-correct="true"> $-\frac{4}{5}$</label>                    
-                    <label class="option-label"><input type="radio" name="q10" value="W2"> $\frac{16}{25}$</label>                    
-                    <label class="option-label"><input type="radio" name="q10" value="W3"> $-\frac{2}{5}$</label>                
+                    <label class="option-label"><input type="radio" name="q10" value="W1"> $11$</label>                    
+                    <label class="option-label"><input type="radio" name="q10" value="C" data-correct="true"> $15$</label>                    
+                    <label class="option-label"><input type="radio" name="q10" value="W2"> $7$</label>                    
+                    <label class="option-label"><input type="radio" name="q10" value="W3"> $9$</label>                
                 </div>                
                 <div class="solution-box">                    
                     <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
-                    តាមរូបមន្តគ្រឹះត្រីកោណមាត្រ៖ $\sin^2\theta + \cos^2\theta = 1 \implies \sin^2\theta = 1 - \left(-\frac{3}{5}\right)^2 = 1 - \frac{9}{25} = \frac{16}{25}$<br>
-                    ដោយសារ $\pi < \theta < \frac{3\pi}{2}$ (មុំស្ថិតក្នុងកាដ្រង់ទី៣ ដែល $\sin\theta < 0$) នាំឱ្យ $\sin\theta = -\sqrt{\frac{16}{25}} = -\frac{4}{5}$។                
+                    - ចំពោះ $n=1 \implies u_3 = 3u_2 - 2u_1 = 3(3) - 2(1) = 7$<br>- ចំពោះ $n=2 \implies u_4 = 3u_3 - 2u_2 = 3(7) - 2(3) = 15$។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q11_box">                
+                <div class="question-text">លំហាត់ ១១. រករូបមន្តតួទូទៅ $u_n$ នៃស្វីតកំណត់ដោយ $u_1 = 3, u_2 = 7$ និង $u_{n+2} = 3u_{n+1} - 2u_n$ ចំពោះគ្រប់ $n \ge 1$។ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q11" value="W1"> $u_n = 2^n + 1$</label>                    
+                    <label class="option-label"><input type="radio" name="q11" value="W2"> $u_n = 4 \cdot 2^{n-1} - 1$</label>                    
+                    <label class="option-label"><input type="radio" name="q11" value="C" data-correct="true"> $u_n = 2^{n+1} - 1$</label>                    
+                    <label class="option-label"><input type="radio" name="q11" value="W3"> $u_n = 3 \cdot 2^{n-1}$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    សមីការលក្ខណៈ $r^2 - 3r + 2 = 0 \implies r=1, r=2$។ ទម្រង់ទូទៅ $u_n = \alpha + \beta \cdot 2^n$។ តាមលក្ខខណ្ឌដើម គេទាញបាន $\alpha = -1, \beta = 2$ នាំឱ្យ $u_n = 2 \cdot 2^n - 1 = 2^{n+1} - 1$។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q12_box">                
+                <div class="question-text">លំហាត់ ១២. ដោះស្រាយសមីការអ៊ិចស្ប៉ូណង់ស្យែល៖ $4^{x} - 6 \cdot 2^{x} + 8 = 0$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q12" value="W1"> $x = 1$</label>                    
+                    <label class="option-label"><input type="radio" name="q12" value="W2"> $x = 2$</label>                    
+                    <label class="option-label"><input type="radio" name="q12" value="C" data-correct="true"> $x = 1, x = 2$</label>                    
+                    <label class="option-label"><input type="radio" name="q12" value="W3"> $x = 0, x = 2$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    តាង $t = 2^x \, (t > 0) \implies t^2 - 6t + 8 = 0 \implies t=2$ ឬ $t=4$។ នាំឱ្យ $x=1$ ឬ $x=2$។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q13_box">                
+                <div class="question-text">លំហាត់ ១៣. ដោះស្រាយសមីការអ៊ិចស្ប៉ូណង់ស្យែល៖ $3^{x^2 - x} = 9^3$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q13" value="W1"> $x = 2, x = -3$</label>                    
+                    <label class="option-label"><input type="radio" name="q13" value="C" data-correct="true"> $x = -2, x = 3$</label>                    
+                    <label class="option-label"><input type="radio" name="q13" value="W2"> $x = 1, x = 6$</label>                    
+                    <label class="option-label"><input type="radio" name="q13" value="W3"> $x = 0, x = 3$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    $3^{x^2 - x} = 3^6 \implies x^2 - x - 6 = 0 \implies (x-3)(x+2) = 0 \implies x = 3, x = -2$។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q14_box">                
+                <div class="question-text">លំហាត់ ១៤. រកសំណុំដំណោះស្រាយនៃវិសមីការ៖ $\left(\frac{1}{3}\right)^{2x-1} \ge \frac{1}{27}$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q14" value="C" data-correct="true"> $x \in (-\infty, 2]$</label>                    
+                    <label class="option-label"><input type="radio" name="q14" value="W1"> $x \in [2, +\infty)$</label>                    
+                    <label class="option-label"><input type="radio" name="q14" value="W2"> $x \in (-\infty, 1]$</label>                    
+                    <label class="option-label"><input type="radio" name="q14" value="W3"> $x \in [1, 2]$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    $\left(\frac{1}{3}\right)^{2x-1} \ge \left(\frac{1}{3}\right)^3 \implies 2x - 1 \le 3$ (ព្រោះគោលតូចជាង ១) $\implies 2x \le 4 \implies x \le 2$។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q15_box">                
+                <div class="question-text">លំហាត់ ១៥. រកសំណុំដំណោះស្រាយនៃវិសមីការ៖ $2^{3x - 1} > \left(\frac{1}{4}\right)^{x - 2}$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q15" value="C" data-correct="true"> $x > 1$</label>                    
+                    <label class="option-label"><input type="radio" name="q15" value="W1"> $x < 1$</label>                    
+                    <label class="option-label"><input type="radio" name="q15" value="W2"> $x > 2$</label>                    
+                    <label class="option-label"><input type="radio" name="q15" value="W3"> $x < 2$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    $2^{3x - 1} > 2^{-2(x - 2)} \implies 3x - 1 > -2x + 4 \implies 5x > 5 \implies x > 1$។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q16_box">                
+                <div class="question-text">លំហាត់ ១៦. ដោះស្រាយសមីការលោការីត៖ $\log_2(x-1) + \log_2(x+2) = 2$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q16" value="W1"> $x = -3$</label>                    
+                    <label class="option-label"><input type="radio" name="q16" value="C" data-correct="true"> $x = 2$</label>                    
+                    <label class="option-label"><input type="radio" name="q16" value="W2"> $x = 2, x = -3$</label>                    
+                    <label class="option-label"><input type="radio" name="q16" value="W3"> $x = 3$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    លក្ខខណ្ឌ៖ $x > 1$។ សមីការ៖ $\log_2[(x-1)(x+2)] = 2 \implies x^2 + x - 2 = 4 \implies x^2 + x - 6 = 0 \implies x = 2$ (យក) ឬ $x = -3$ (មិនយក)។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q17_box">                
+                <div class="question-text">លំហាត់ ១៧. ដោះស្រាយសមីការលោការីត៖ $\log_3(2x - 1) = 2$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q17" value="W1"> $x = 4$</label>                    
+                    <label class="option-label"><input type="radio" name="q17" value="C" data-correct="true"> $x = 5$</label>                    
+                    <label class="option-label"><input type="radio" name="q17" value="W2"> $x = 8$</label>                    
+                    <label class="option-label"><input type="radio" name="q17" value="W3"> $x = 9$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    លក្ខខណ្ឌ៖ $2x - 1 > 0 \implies x > \frac{1}{2}$។ តាមនិយមន័យ៖ $2x - 1 = 3^2 \implies 2x - 1 = 9 \implies x = 5$។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q18_box">                
+                <div class="question-text">លំហាត់ ១៨. រកសំណុំដំណោះស្រាយនៃវិសមីការ៖ $\log_{0.5}(2x - 4) > \log_{0.5}(x + 1)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q18" value="W1"> $x > 2$</label>                    
+                    <label class="option-label"><input type="radio" name="q18" value="W2"> $x < 5$</label>                    
+                    <label class="option-label"><input type="radio" name="q18" value="C" data-correct="true"> $2 < x < 5$</label>                    
+                    <label class="option-label"><input type="radio" name="q18" value="W3"> $x \in \emptyset$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    លក្ខខណ្ឌ៖ $x > 2$។ ដោយសារគោល $0.5 < 1$ នាំឱ្យ៖ $2x - 4 < x + 1 \implies x < 5$។ ដូចនេះចម្លើយគឺ $2 < x < 5$។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q19_box">                
+                <div class="question-text">លំហាត់ ១៩. រកសំណុំដំណោះស្រាយនៃវិសមីការ៖ $\log_2(x - 3) \le 3$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q19" value="C" data-correct="true"> $x \in (3, 11]$</label>                    
+                    <label class="option-label"><input type="radio" name="q19" value="W1"> $x \in (-\infty, 11]$</label>                    
+                    <label class="option-label"><input type="radio" name="q19" value="W2"> $x \in (3, 11)$</label>                    
+                    <label class="option-label"><input type="radio" name="q19" value="W3"> $x \in [3, 11]$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    លក្ខខណ្ឌ៖ $x - 3 > 0 \implies x > 3$។ វិសមីការ៖ $x - 3 \le 2^3 \implies x \le 11$។ នាំឱ្យសំណុំដំណោះស្រាយគឺ $3 < x \le 11$។                
+                </div>            
+            </div>
+
+            <div class="question-card" id="q20_box">                
+                <div class="question-text">លំហាត់ ២០. គណនាតម្លៃប្រាកដនៃកន្សោម៖ $A = \sin\left(\frac{\pi}{6}\right) + \cos\left(\frac{\pi}{3}\right) - \tan\left(\frac{\pi}{4}\right)$ <span class="points">(៥ ពិន្ទុ)</span></div>                
+                <div class="options-container">                    
+                    <label class="option-label"><input type="radio" name="q20" value="W1"> $1$</label>                    
+                    <label class="option-label"><input type="radio" name="q20" value="W2"> $\frac{1}{2}$</label>                    
+                    <label class="option-label"><input type="radio" name="q20" value="C" data-correct="true"> $0$</label>                    
+                    <label class="option-label"><input type="radio" name="q20" value="W3"> $-1$</label>                
+                </div>                
+                <div class="solution-box">                    
+                    <div class="solution-title">💡 ដំណោះស្រាយលម្អិត៖</div>                    
+                    ជំនួសតម្លៃមុំពិសេស៖ $\sin\left(\frac{\pi}{6}\right) = \frac{1}{2}, \, \cos\left(\frac{\pi}{3}\right) = \frac{1}{2}, \, \tan\left(\frac{\pi}{4}\right) = 1$ នាំឱ្យ $A = \frac{1}{2} + \frac{1}{2} - 1 = 0$។                
                 </div>            
             </div>
 
@@ -192,15 +318,12 @@
     </div>
 
     <script>
-        // កូដកម្មវិធី JavaScript ដំណើរការម៉ោង និងការកែពិន្ទុស្វ័យប្រវត្ត
         let totalSeconds = 150 * 60;
         const timeDisplay = document.getElementById('timeDisplay');
         
         function updateTimer() {
             let minutes = Math.floor(totalSeconds / 60);
             let seconds = totalSeconds % 60;
-            
-            // បំលែងជាលេខខ្មែរសម្រាប់ការបង្ហាញ
             let khmerMinutes = minutes.toString().replace(/\d/g, d => '០១២៣៤៥៦៧៨៩'[d]);
             let khmerSeconds = seconds.toString().padStart(2, '0').replace(/\d/g, d => '០១២៣៤៥៦៧៨៩'[d]);
             
@@ -228,9 +351,8 @@
 
             clearInterval(timerInterval);
             let score = 0;
-            const totalQuestions = 10;
+            const totalQuestions = 20; // ចំនួន ២០ លំហាត់ពេញលេញ
             
-            // ពិនិត្យចម្លើយ
             for(let i = 1; i <= totalQuestions; i++) {
                 const qBox = document.getElementById(`q${i}_box`);
                 const selected = document.querySelector(`input[name="q${i}"]:checked`);
@@ -243,7 +365,6 @@
                 }
             }
 
-            // បង្ហាញលទ្ធផល
             document.getElementById('infoBox').style.display = 'none';
             document.getElementById('resultBox').style.display = 'block';
             document.getElementById('studentResultName').textContent = `សិស្សឈ្មោះ៖ ${name} | ថ្នាក់៖ ${sClass}`;
@@ -254,7 +375,6 @@
             let spentSec = timeSpent % 60;
             document.getElementById('timeSpentDisplay').textContent = `រយៈពេលប្រើប្រាស់៖ ${spentMin} នាទី ${spentSec} វិនាទី`;
 
-            // បង្ហាញប្រអប់ដំណោះស្រាយទាំងអស់
             const solutions = document.querySelectorAll('.solution-box');
             solutions.forEach(box => box.style.display = 'block');
 
